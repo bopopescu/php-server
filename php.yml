@@ -1,0 +1,23 @@
+- name: php_server
+  hosts: local
+  connection: local
+  gather_facts: False
+
+  tasks:
+  # Define the backend configuration at init
+  - terraform:
+      project_path: 'infra/'
+      state: present
+      force_init: True
+      backend_config:
+        region: "us-east-1"
+        # key: "random.tfstate"
+
+  #check if the instance is ready.
+  - shell: aws ec2 describe-instance-status | jq .InstanceStatuses[0]
+    register: ps
+  - debug: var=ps.stdout_lines
+
+  #fix README. fix requirements. pem file creation, download, pass name into tf. 
+  #store ansible vault.
+  #review architecture.

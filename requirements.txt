@@ -1,0 +1,4 @@
+boto
+boto3
+botocore
+ansible==2.8.6 #2.9 fails out.
